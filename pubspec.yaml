@@ -1,0 +1,37 @@
+name: taclia_app
+description: taclia test
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  bloc:
+  flutter_bloc:
+  equatable:
+  get_it:
+  firebase_core: ^0.4.3+1
+  cloud_firestore: ^0.13.0+1
+  cloud_functions: ^0.4.1+6
+  firebase_auth: ^0.15.3
+  shared_preferences:
+  cupertino_icons:
+  url_launcher:
+  flutter_launcher_icons:
+  local_auth: ^0.6.1
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icon_temp.png"
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/

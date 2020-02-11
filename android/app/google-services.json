@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "636891953467",
+    "firebase_url": "https://taclia-3be6b.firebaseio.com",
+    "project_id": "taclia-3be6b",
+    "storage_bucket": "taclia-3be6b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:636891953467:android:63672a6d0454f873541f1e",
+        "android_client_info": {
+          "package_name": "com.danielmontil.taclia_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "636891953467-05flrca08i60htgdptlp2b2dl1alg9g7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.danielmontil.taclia_app",
+            "certificate_hash": "a875c4ba885c978d9903d4a712776a1e9d91af89"
+          }
+        },
+        {
+          "client_id": "636891953467-qfe91kuahrtrtio5erv3su2rttjs8b0k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCE0Iz98aXPgPqWdBO1N88y7skiAaV-Lrw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "636891953467-qfe91kuahrtrtio5erv3su2rttjs8b0k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
