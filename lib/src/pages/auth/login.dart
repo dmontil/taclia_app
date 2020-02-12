@@ -1,4 +1,3 @@
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
@@ -20,29 +19,12 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController emailController;
   TextEditingController passController;
   TextStyle styleText = TextStyle(color: Colors.white);
-  LocalAuthentication  _localAth;
-  bool _isBiometricAvailable = false;
-  bool _isFirstLaunch = false;
   @override
   void initState() {
     super.initState();
     _loginBloc = LoginBlocBloc(logic: LoginWhitFirebase());
     emailController = TextEditingController();
     passController = TextEditingController();
-    _localAth = LocalAuthentication();
-    _isFirstLaunch = checkFirstLaunch();
-    if(_isFirstLaunch){
-      _localAth.canCheckBiometrics.then((b){
-        setState(() {
-          _isBiometricAvailable = b;
-        });
-      });
-    }
-
-    if (kReleaseMode) {// PARA EN MODO DEBUG NO TENER QUE PONER PASS
-    } else {
-      emailController.text = "";
-      passController.text ="";    }
   }
 
   @override
@@ -58,7 +40,7 @@ class _LoginPageState extends State<LoginPage> {
               _showError(context, state.message);
             }
             if (state is LoggedInBlocState) {
-              Navigator.pushNamed(context, 'testPage');
+              Navigator.pushNamed(context, 'calendarPage');
             }
           },
           child: BlocBuilder<LoginBlocBloc, LoginBlocState>(
@@ -111,7 +93,8 @@ class _LoginPageState extends State<LoginPage> {
                                           height: 130,
                                           decoration: BoxDecoration(
                                               shape: BoxShape.circle,
-                                              color: Theme.of(context).primaryColor),
+                                              color: Theme.of(context)
+                                                  .primaryColor),
                                         ),
                                         alignment: Alignment.center,
                                       ),
@@ -134,13 +117,13 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                               Padding(
                                 padding: EdgeInsets.only(bottom: 20, top: 60),
-                                child:  WidgetsCustoms().input(Icon(Icons.email), "EMAIL",
-                                    emailController, false,context),
+                                child: WidgetsCustoms().input(Icon(Icons.email),
+                                    "EMAIL", emailController, false, context),
                               ),
                               Padding(
                                 padding: EdgeInsets.only(bottom: 20),
-                                child:  WidgetsCustoms().input(Icon(Icons.lock), "PASSWORD",
-                                    passController, true,context),
+                                child: WidgetsCustoms().input(Icon(Icons.lock),
+                                    "PASSWORD", passController, true, context),
                               ),
                               SizedBox(
                                 height: 20,
@@ -149,31 +132,21 @@ class _LoginPageState extends State<LoginPage> {
                                 padding: EdgeInsets.only(
                                     left: 20,
                                     right: 20,
-                                    bottom: MediaQuery.of(context).viewInsets.bottom),
+                                    bottom: MediaQuery.of(context)
+                                        .viewInsets
+                                        .bottom),
                                 child: Container(
-                                  child:  WidgetsCustoms().button("LOGIN", Colors.white, primary,
-                                      primary, Colors.white, _doLogin),
+                                  child: WidgetsCustoms().button(
+                                      "LOGIN",
+                                      Colors.white,
+                                      primary,
+                                      primary,
+                                      Colors.white,
+                                      _doLogin),
                                   height: 50,
                                   width: MediaQuery.of(context).size.width,
                                 ),
                               ),
-                              if(_isBiometricAvailable)
-
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                      top: 30,
-                                      left: 20,
-                                      right: 20,
-                                      bottom: MediaQuery.of(context).viewInsets.bottom),
-                                  child: Container(
-                                    child:  WidgetsCustoms().button("Usar huella dactilar", Colors.white, primary,
-                                        primary, Colors.white,_doLoginWhitFinger),
-                                    height: 50,
-                                    width: MediaQuery.of(context).size.width,
-                                  ),
-                                ),
-
-
                               SizedBox(
                                 height: 20,
                               ),
@@ -194,18 +167,7 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
-  void  _doLoginWhitFinger() async {
-   bool didAuthenticate = await _localAth.authenticateWithBiometrics(localizedReason: "Iniciar sesion con huella");
 
-   if(didAuthenticate){
-     User user =  GetIt.I.get<LocalStorageService>().getUser();
-     setState(() {
-       emailController.text = user.userName;
-       passController.text = user.password;
-     });
-     _doLogin();
-   }
-}
   void _doLogin() {
     _loginBloc.add(DoLoginEvent(emailController.text, passController.text));
   }
@@ -231,14 +193,4 @@ class _LoginPageState extends State<LoginPage> {
       hintStyle: styleText,
     );
   }
-
-
-
-
-}
-
-bool checkFirstLaunch() {
-  User user =  GetIt.I.get<LocalStorageService>().getUser();
-  if(user != null) return true;
-  return false;
 }

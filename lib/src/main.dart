@@ -13,18 +13,16 @@ import 'services/user_service.dart';
 
 void main()async {
   WidgetsFlutterBinding.ensureInitialized();
-
   await setupLocator();
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'Taclia App',
       theme: ThemeData(
         hintColor: Colors.black54,
         primaryColor: Colors.orange,
@@ -34,7 +32,7 @@ class MyApp extends StatelessWidget {
       initialRoute:  'homeLogin',
       routes: {
         'addEvent': (BuildContext context) => AddEventPage(),
-        'testPage': (BuildContext context) => CalendarPage(),
+        'calendarPage': (BuildContext context) => CalendarPage(),
         'homeLogin': (BuildContext context) => HomeLogin(),
         'loginPage' : (BuildContext context) => LoginPage(),
         'registerPage' : (BuildContext context) => RegisterPage(),
@@ -46,11 +44,11 @@ class MyApp extends StatelessWidget {
   }
 }
 Future setupLocator() async {
+  //To create singletons
   GetIt locator = GetIt.I;
   var instance = await LocalStorageService.getInstance();
   locator.registerSingleton<LocalStorageService>(instance);
   locator.registerSingleton<UserService>(UserService());
-
 }
 
 

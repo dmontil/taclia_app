@@ -25,5 +25,14 @@ class LoginBlocBloc extends Bloc<LoginBlocEvent, LoginBlocState> {
           yield ErrorBlocState("No se pudo logueaaar");
         }
     }
+    if(event is DoLoginEvent){
+      yield LogginInBlocState();
+      try{
+        var responseData =  await logic.login(event.email, event.password);
+        yield LoggedInBlocState(responseData);
+      }on LoginException{
+        yield ErrorBlocState("No se pudo logueaaar");
+      }
+    }
   }
 }

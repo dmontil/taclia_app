@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:taclia_app/src/blocs/bloc.dart';
 import 'package:taclia_app/src/models/events.dart';
 import 'package:taclia_app/src/provider/event_logic.dart';
+import 'package:taclia_app/src/provider/login_logic.dart';
 import 'package:taclia_app/src/widgets/widgets.dart';
 
 class CalendarPage extends StatefulWidget {
@@ -30,17 +31,25 @@ class _CalendarPageState extends State<CalendarPage> {
             if (state is EventedInBlocState) {
               list = state.list;
             }
+            if (state is EventDeleteBlocState) {
+              _getEvents();
+            }
           },
           child: BlocBuilder<EventBloc, EventState>(builder: (context, state) {
             return Scaffold(
                 appBar: AppBar(
                   title: Text("Calendar"),
                   leading: IconButton(
-                      icon: Icon(Icons.power_settings_new), onPressed: () {}),
+                      icon: Icon(Icons.power_settings_new),
+                      onPressed: () {
+                        LoginWhitFirebase().logout();
+                        Navigator.of(context).pushNamedAndRemoveUntil(
+                            'homeLogin', (Route<dynamic> route) => false);
+                      }),
                   actions: <Widget>[
                     IconButton(
                       icon: Icon(Icons.add),
-                      onPressed: (){
+                      onPressed: () {
                         Navigator.pushNamed(context, "addEvent");
                       },
                     )
@@ -55,7 +64,7 @@ class _CalendarPageState extends State<CalendarPage> {
                         shrinkWrap: true,
                         itemCount: list.length,
                         itemBuilder: (context, i) =>
-                            WidgetsCustoms().cardList(list[i]),
+                            WidgetsCustoms().cardList(list[i], _removeEvents),
                       ))
                     : Center(
                         child: CircularProgressIndicator(),
@@ -68,7 +77,7 @@ class _CalendarPageState extends State<CalendarPage> {
     _eventBloc.add(getDataEvent());
   }
 
-  _createEvent() {
-
+  void _removeEvents(String title) {
+    _eventBloc.add(deleteEvent(title));
   }
 }

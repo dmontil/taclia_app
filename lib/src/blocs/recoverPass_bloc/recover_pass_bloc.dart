@@ -15,6 +15,13 @@ class RecoverPassBloc extends Bloc<RecoverPassEvent, RecoverPassState> {
   Stream<RecoverPassState> mapEventToState(
     RecoverPassEvent event,
   ) async* {
-    // TODO: Add Logic
+      if( event is doRecoverPassEvent){
+        try{
+          var responseData = await logic.recoverPass(event.email);
+          yield RecoveredPassInBlocState(responseData);
+        }catch(e){
+          print(e);
+        }
+      }
   }
 }

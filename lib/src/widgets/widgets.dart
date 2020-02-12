@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:taclia_app/src/models/events.dart';
+import 'package:taclia_app/src/provider/event_logic.dart';
 
 class WidgetsCustoms{
   dividerCustom(){
@@ -91,10 +92,13 @@ class WidgetsCustoms{
     );
   }
 
-  Widget cardList(Events event){
+  Widget cardList(Events event, void function(String title)){
     return ListTile(
       title: Text(event.title,),
-      trailing:IconButton(icon: Icon(Icons.delete),onPressed: (){},),
+      trailing:IconButton(icon: Icon(Icons.delete),
+        onPressed:(){
+        function(event.id);
+      },),
       subtitle:
     Column(children: <Widget>[
       Row(children: <Widget>[

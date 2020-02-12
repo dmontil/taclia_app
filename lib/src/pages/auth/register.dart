@@ -1,10 +1,8 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:taclia_app/src/blocs/bloc.dart';
 import 'package:taclia_app/src/provider/register_logic.dart';
 import 'package:taclia_app/src/widgets/widgets.dart';
-
 
 class RegisterPage extends StatefulWidget {
   @override
@@ -17,7 +15,6 @@ class _RegisterPageState extends State<RegisterPage> {
   TextEditingController passController;
   TextEditingController pass2Controller;
   RegisterBloc _registerBloc;
-
 
   @override
   void initState() {
@@ -42,12 +39,12 @@ class _RegisterPageState extends State<RegisterPage> {
               // _showError(context, state.message);
             }
             if (state is RegisteredInBlocState) {
-              Navigator.pushNamed(context, 'testPage');
+              Navigator.pushNamed(context, 'calendarPage');
             }
           },
           child: BlocBuilder<RegisterBloc, RegisterState>(
             builder: (context, state) {
-              return  DecoratedBox(
+              return DecoratedBox(
                 decoration: BoxDecoration(color: Theme.of(context).canvasColor),
                 child: ClipRRect(
                   borderRadius: BorderRadius.only(
@@ -94,14 +91,16 @@ class _RegisterPageState extends State<RegisterPage> {
                                         height: 130,
                                         decoration: BoxDecoration(
                                             shape: BoxShape.circle,
-                                            color: Theme.of(context).primaryColor),
+                                            color:
+                                                Theme.of(context).primaryColor),
                                       ),
                                       alignment: Alignment.center,
                                     ),
                                   ),
                                   Positioned(
                                     child: Container(
-                                      padding: EdgeInsets.only(bottom: 25, right: 40),
+                                      padding: EdgeInsets.only(
+                                          bottom: 25, right: 40),
                                       child: Text(
                                         "REGI",
                                         style: TextStyle(
@@ -116,7 +115,8 @@ class _RegisterPageState extends State<RegisterPage> {
                                   Positioned(
                                     child: Align(
                                       child: Container(
-                                        padding: EdgeInsets.only(top: 40, left: 20),
+                                        padding:
+                                            EdgeInsets.only(top: 40, left: 20),
                                         width: 130,
                                         child: Text(
                                           "STRO",
@@ -137,22 +137,28 @@ class _RegisterPageState extends State<RegisterPage> {
                               padding: EdgeInsets.only(
                                 bottom: 20,
                               ),
-                              child: WidgetsCustoms().input(Icon(Icons.email), "CORREO",
-                                  emailController, false,context),
+                              child: WidgetsCustoms().input(Icon(Icons.email),
+                                  "CORREO", emailController, false, context),
                             ),
                             Padding(
                               padding: EdgeInsets.only(bottom: 20),
-                              child: WidgetsCustoms().input(Icon(Icons.lock), "CONTRASEÑA",
-                                  passController, true,context),
+                              child: WidgetsCustoms().input(Icon(Icons.lock),
+                                  "CONTRASEÑA", passController, true, context),
                             ),
                             Padding(
                               padding: EdgeInsets.only(
                                   left: 20,
                                   right: 20,
-                                  bottom: MediaQuery.of(context).viewInsets.bottom),
+                                  bottom:
+                                      MediaQuery.of(context).viewInsets.bottom),
                               child: Container(
-                                child: WidgetsCustoms().button("REGISTRAR", Colors.white, primary,
-                                    primary, Colors.white, _doRegister),
+                                child: WidgetsCustoms().button(
+                                    "REGISTRAR",
+                                    Colors.white,
+                                    primary,
+                                    primary,
+                                    Colors.white,
+                                    _doRegister),
                                 height: 50,
                                 width: MediaQuery.of(context).size.width,
                               ),
@@ -177,10 +183,8 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
-  void _doRegister(){
-    _registerBloc.add(doRegisterEvent(emailController.text,passController.text,pass2Controller.text));
+  void _doRegister() {
+    _registerBloc
+        .add(doRegisterEvent(emailController.text, passController.text));
   }
-
 }
-
-

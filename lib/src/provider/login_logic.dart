@@ -27,6 +27,7 @@ class SimpleLogin extends LoginLogic {
 
   @override
   Future<String> logout() async {
+
     return "Saliste";
   }
 }
@@ -39,11 +40,11 @@ class LoginWhitFirebase extends LoginLogic {
       var user = await auth.signInWithEmailAndPassword(
           email: email, password: password);
       if (user != null) {
-        // GUARDAR TOKEN
+        // save token if is necesary
         return true;
       }
     } catch (e) {
-      // MANEJAR EXEPCION
+      //Exception drive
       print(e.toString());
       throw LoginException();
     }

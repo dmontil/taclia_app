@@ -1,9 +1,8 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:taclia_app/src/blocs/bloc.dart';
+import 'package:taclia_app/src/provider/recoverPass_logic.dart';
 import 'package:taclia_app/src/widgets/widgets.dart';
-
 
 class RecoverLoginPage extends StatefulWidget {
   @override
@@ -19,13 +18,13 @@ class _RecoverLoginPage extends State<RecoverLoginPage> {
   void initState() {
     super.initState();
     emailController = TextEditingController();
-
-
+    _recoverPassBloc = RecoverPassBloc(logic: recoverPassWhitFirebase());
   }
+
   @override
   Widget build(BuildContext context) {
     Color primary = Theme.of(context).primaryColor;
-    return  BlocProvider(
+    return BlocProvider(
       create: (_) => _recoverPassBloc,
       child: Padding(
         padding: const EdgeInsets.all(1.0),
@@ -34,8 +33,8 @@ class _RecoverLoginPage extends State<RecoverLoginPage> {
             if (state is ErrorBlocState) {
               //   _showError(context, state.message);
             }
-            if (state is LoggedInBlocState) {
-              Navigator.pushNamed(context, 'register');
+            if (state is RecoveredPassInBlocState) {
+              Navigator.pop(context);
             }
           },
           child: BlocBuilder<RecoverPassBloc, RecoverPassState>(
@@ -86,14 +85,16 @@ class _RecoverLoginPage extends State<RecoverLoginPage> {
                                         height: 130,
                                         decoration: BoxDecoration(
                                             shape: BoxShape.circle,
-                                            color: Theme.of(context).primaryColor),
+                                            color:
+                                                Theme.of(context).primaryColor),
                                       ),
                                       alignment: Alignment.center,
                                     ),
                                   ),
                                   Positioned(
                                     child: Container(
-                                      padding: EdgeInsets.only(bottom: 25, right: 15),
+                                      padding: EdgeInsets.only(
+                                          bottom: 25, right: 15),
                                       child: Text(
                                         "CONTR",
                                         style: TextStyle(
@@ -108,7 +109,8 @@ class _RecoverLoginPage extends State<RecoverLoginPage> {
                                   Positioned(
                                     child: Align(
                                       child: Container(
-                                        padding: EdgeInsets.only(top: 40, left: 10),
+                                        padding:
+                                            EdgeInsets.only(top: 40, left: 10),
                                         width: 130,
                                         child: Text(
                                           "ASEÑA",
@@ -129,18 +131,23 @@ class _RecoverLoginPage extends State<RecoverLoginPage> {
                               padding: EdgeInsets.only(
                                 bottom: 20,
                               ),
-                              child: WidgetsCustoms().input(Icon(Icons.email), "CORREO",
-                                  emailController, false,context),
+                              child: WidgetsCustoms().input(Icon(Icons.email),
+                                  "CORREO", emailController, false, context),
                             ),
-
                             Padding(
                               padding: EdgeInsets.only(
                                   left: 20,
                                   right: 20,
-                                  bottom: MediaQuery.of(context).viewInsets.bottom),
+                                  bottom:
+                                      MediaQuery.of(context).viewInsets.bottom),
                               child: Container(
-                                child: WidgetsCustoms().button("RECUPERAR", Colors.white, primary,
-                                    primary, Colors.white, _doRecoverPass),
+                                child: WidgetsCustoms().button(
+                                    "RECUPERAR",
+                                    Colors.white,
+                                    primary,
+                                    primary,
+                                    Colors.white,
+                                    _doRecoverPass),
                                 height: 50,
                                 width: MediaQuery.of(context).size.width,
                               ),
@@ -164,6 +171,8 @@ class _RecoverLoginPage extends State<RecoverLoginPage> {
       ),
     );
   }
-  void _doRecoverPass(){
+
+  void _doRecoverPass() {
+    _recoverPassBloc.add(doRecoverPassEvent(emailController.text));
   }
 }

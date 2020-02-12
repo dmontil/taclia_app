@@ -3,16 +3,14 @@ import 'package:equatable/equatable.dart';
 abstract class RegisterEvent extends Equatable {
   const RegisterEvent();
 }
-//FUNCIONES
-
+//functions
 class doRegisterEvent extends RegisterEvent{
   final String email;
   final String password;
-  final String password2;
 
-  doRegisterEvent(this.email, this.password, this.password2);
+  doRegisterEvent(this.email, this.password);
 
   @override
-  List<Object> get props => [email,password,password2];
+  List<Object> get props => [email,password];
 
 }

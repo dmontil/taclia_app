@@ -14,3 +14,11 @@ class DoLoginEvent extends  LoginBlocEvent{
   List<Object> get props => [email,password];
 
 }
+
+class SignOutEvent extends LoginBlocEvent{
+  final bool signOut;
+  SignOutEvent(this.signOut);
+  @override
+  List<Object> get props => [signOut];
+
+}

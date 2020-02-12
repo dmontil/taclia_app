@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 abstract class RecoverPassEvent extends Equatable {
   const RecoverPassEvent();
 }
-//FUNCIONES
+//functions
 class doRecoverPassEvent extends RecoverPassEvent{
   final String email;
   doRecoverPassEvent(this.email);
@@ -11,3 +11,4 @@ class doRecoverPassEvent extends RecoverPassEvent{
   List<Object> get props => [email];
 
 }
+
